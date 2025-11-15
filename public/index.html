@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slyk | Just speak</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #d4e7f7 0%, #f8fafc 100%);
+      min-height: 100vh;
+    }
+    
+    @keyframes wave {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+    }
+    
+    .wave-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .wave-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(29, 161, 242, 0.1) 0%, transparent 70%);
+      animation: wave 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-wave {
+      0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+    
+    .wave-bar {
+      animation: pulse-wave 1.2s ease-in-out infinite;
+    }
+    
+    .wave-bar:nth-child(1) { animation-delay: 0s; }
+    .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+    
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in-up {
+      animation: fade-in-up 0.6s ease-out forwards;
+    }
+    
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    
+    .typing-text {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #1DA1F2;
+      animation: typing 2s steps(30, end) infinite, blink 0.75s step-end infinite;
+    }
+    
+    @keyframes key-press {
+      0%, 100% { transform: scale(1); }
+      15%, 75% { transform: scale(0.95); }
+    }
+    
+    @keyframes mic-glow {
+      0%, 100% { color: #9ca3af; }
+      15%, 75% { color: #1DA1F2; }
+    }
+    
+    .key-animation {
+      animation: key-press 4s ease-in-out infinite;
+      will-change: transform;
+    }
+    
+    .mic-animation {
+      animation: mic-glow 4s ease-in-out infinite;
+      will-change: color;
+    }
+    
+    @keyframes heading-reveal {
+      0% { 
+        width: 0; 
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      100% { 
+        width: calc(100% - 30px); 
+        opacity: 1;
+      }
+    }
+    
+    @keyframes cursor-fade {
+      0%, 90% { border-color: #d1d5db; }
+      100% { border-color: transparent; }
+    }
+    
+    .streaming-text {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      border-right: 2px solid transparent;
+      animation: 
+        heading-reveal 2s ease-out forwards,
+        cursor-fade 2.5s ease-out forwards;
+      will-change: width, opacity;
+    }
+    
+    @keyframes tagline-reveal {
+      0% { 
+        width: 0; 
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      100% { 
+        width: 100%; 
+        opacity: 1;
+      }
+    }
+    
+    .tagline-text {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      animation: tagline-reveal 1.5s ease-out forwards;
+      animation-delay: 0.5s;
+      will-change: width, opacity;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdown = document.getElementById('platform-dropdown');
+      const button = document.getElementById('platform-button');
+      const menu = document.getElementById('platform-menu');
+      
+      // Close on click outside
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+          menu.classList.add('hidden');
+        }
+      });
+      
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          menu.classList.add('hidden');
+        }
+      });
+      
+      // Toggle dropdown
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+      });
+    });
+  </script>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+  <!-- Wave Background -->
+  <div class="wave-bg"></div>
+  <!-- Main Container -->
+  <div class="max-w-6xl mx-auto bg-white rounded-[20px] shadow-2xl overflow-hidden">
+    <!-- Header -->
+    <header class="border-b border-gray-200 bg-white">
+      <div class="px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <img src="/logo.svg" alt="Slyk Logo" class="w-8 h-8">
+          <h1 class="text-2xl font-bold">slyk</h1>
+        </div>
+        <nav class="space-x-6 text-sm">
+          <a href="#download" class="hover:text-gray-600">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="px-8 py-32 text-center">
+      <h2 class="text-5xl md:text-8xl font-bold mb-16">
+        <span class="streaming-text">Just speak</span>
+      </h2>
+      <p class="text-xl text-gray-600 mb-20 max-w-2xl mx-auto">
+        <span class="tagline-text">Move at the speed of thought</span>
+      </p>
+      
+      <!-- Download Section -->
+      <div id="download" class="space-y-4">
+        <!-- Platform Dropdown -->
+        <div id="platform-dropdown" class="relative inline-block">
+          <button
+            id="platform-button"
+            type="button"
+            class="inline-flex items-center justify-between gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-semibold text-lg"
+          >
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              <span>Download for macOS</span>
+            </div>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div id="platform-menu" class="hidden absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-2xl shadow-lg z-10">
+            <a 
+              href="/download/slyk_1.0.0_aarch64.dmg" 
+              download
+              class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors rounded-2xl"
+            >
+              <div class="text-left">
+                <div class="font-semibold text-gray-900 text-left">Apple Silicon</div>
+                <div class="text-sm text-gray-500 text-left">M1, M2, M3 • macOS 13+</div>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="px-8 py-20 bg-gray-50">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-3xl p-16 shadow-sm">
+          <div class="space-y-16">
+            <!-- Step 1: Keyboard Shortcut -->
+            <div class="flex flex-col items-center gap-6">
+              <div class="flex items-center gap-3 px-8 py-4 bg-gray-50 rounded-2xl">
+                <kbd class="key-animation px-4 py-2 bg-white border-2 border-gray-300 rounded-2xl shadow-sm font-mono text-lg font-semibold">⌥</kbd>
+                <span class="text-gray-400 text-xl">+</span>
+                <kbd class="key-animation px-4 py-2 bg-white border-2 border-gray-300 rounded-2xl shadow-sm font-mono text-lg font-semibold">Z</kbd>
+              </div>
+            </div>
+            
+            <!-- Step 2: Microphone + Sound Waves -->
+            <div class="flex flex-col items-center gap-8">
+              <div class="relative">
+                <!-- Microphone Icon -->
+                <svg class="mic-animation w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                </svg>
+              </div>
+              
+              <!-- Sound Waves -->
+              <div class="flex items-center gap-2 h-16">
+                <div class="wave-bar w-1 rounded-full" style="height: 20px; background-color: #1DA1F2;"></div>
+                <div class="wave-bar w-1 rounded-full" style="height: 40px; background-color: #1DA1F2;"></div>
+                <div class="wave-bar w-1 rounded-full" style="height: 60px; background-color: #1DA1F2;"></div>
+                <div class="wave-bar w-1 rounded-full" style="height: 40px; background-color: #1DA1F2;"></div>
+                <div class="wave-bar w-1 rounded-full" style="height: 20px; background-color: #1DA1F2;"></div>
+              </div>
+            </div>
+            
+            <!-- Step 3: Text Output -->
+            <div class="flex flex-col items-center gap-6">
+              <div class="px-8 py-4 backdrop-blur-xl bg-white/90 supports-[backdrop-filter]:bg-white/80 border border-white/30 rounded-2xl shadow-2xl min-w-[400px]">
+                <p class="typing-text text-gray-700 text-lg font-medium inline-block">This is my transcribed text</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-8 px-8">
+      <div class="text-center text-sm text-gray-600">
+        <p>Beta access currently. Need a key? Contact <a href="https://twitter.com/vdutts7" class="text-black hover:underline font-medium">@vdutts7</a></p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
