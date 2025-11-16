@@ -206,8 +206,6 @@ All colors MUST be HSL.
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
-  /* DEBUG: Make background visible */
-  border: 2px solid red;
 }
 
 .wave-background::before,
@@ -216,7 +214,7 @@ All colors MUST be HSL.
   position: absolute;
   width: 300%;
   height: 300%;
-  background: linear-gradient(45deg, transparent 20%, rgba(59, 130, 246, 0.15) 50%, transparent 80%);
+  background: linear-gradient(45deg, transparent 20%, rgba(173, 216, 230, 0.16) 50%, transparent 80%);
   border-radius: 50%;
 }
 
@@ -229,7 +227,7 @@ All colors MUST be HSL.
 .wave-background::after {
   bottom: -100%;
   right: -100%;
-  background: linear-gradient(135deg, transparent 20%, rgba(139, 69, 19, 0.12) 50%, transparent 80%);
+  background: linear-gradient(135deg, transparent 20%, rgba(135, 206, 235, 0.12) 50%, transparent 80%);
   animation: wave-2 18s ease-in-out infinite reverse;
 }
 
@@ -239,7 +237,7 @@ All colors MUST be HSL.
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(99, 102, 241, 0.1) 50%, transparent 70%);
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(176, 224, 230, 0.10) 50%, transparent 70%);
   border-radius: 50%;
   animation: wave-3 22s ease-in-out infinite;
 }

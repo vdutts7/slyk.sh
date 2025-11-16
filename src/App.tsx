@@ -6,14 +6,9 @@ import Index from "./pages/Index";
 const App = () => (
   <TooltipProvider>
     <div className="min-h-screen bg-background relative">
-      {/* Wave background - TEST VERSION */}
+      {/* Wave background */}
       <div className="wave-background">
         <div className="wave-layer-3"></div>
-      </div>
-      
-      {/* DEBUG: Visible test element */}
-      <div className="fixed top-4 left-4 z-50 bg-red-500 text-white p-2 rounded text-xs">
-        Wave Test Active
       </div>
       
       <Toaster />
