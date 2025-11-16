@@ -7,6 +7,9 @@ const HowToUse = () => {
   const [showOutput, setShowOutput] = useState(false);
   const [outputText, setOutputText] = useState("");
   const [waveformData, setWaveformData] = useState<number[]>(Array(50).fill(2));
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     // Prevent default behavior for Option+Z
@@ -50,33 +53,92 @@ const HowToUse = () => {
     }
   }, [isOptionPressed, isZPressed, isRecording]);
 
-  // Dynamic waveform animation effect
+  // Real microphone input processing
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let animationFrame: number;
+    
+    const startMicrophone = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        setMediaStream(stream);
+        
+        const context = new AudioContext();
+        const analyserNode = context.createAnalyser();
+        const source = context.createMediaStreamSource(stream);
+        
+        analyserNode.fftSize = 256;
+        source.connect(analyserNode);
+        
+        setAudioContext(context);
+        setAnalyser(analyserNode);
+        
+        const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
+        
+        const updateWaveform = () => {
+          if (isRecording && analyserNode) {
+            analyserNode.getByteFrequencyData(dataArray);
+            
+            // Convert frequency data to waveform bars
+            const newWaveformData = Array.from({ length: 50 }, (_, i) => {
+              const dataIndex = Math.floor((i / 50) * dataArray.length);
+              const amplitude = dataArray[dataIndex] || 0;
+              
+              // Scale amplitude to pixel height (2-60px)
+              const height = Math.max(2, (amplitude / 255) * 58 + 2);
+              return height;
+            });
+            
+            setWaveformData(newWaveformData);
+          } else {
+            setWaveformData(Array(50).fill(2));
+          }
+          
+          animationFrame = requestAnimationFrame(updateWaveform);
+        };
+        
+        updateWaveform();
+      } catch (error) {
+        console.log('Microphone access denied, using fallback animation');
+        // Fallback to fake animation if mic access denied
+        if (isRecording) {
+          const interval = setInterval(() => {
+            const fakeData = Array.from({ length: 50 }, () => 
+              Math.max(2, Math.random() * 58 + 2)
+            );
+            setWaveformData(fakeData);
+          }, 100);
+          
+          return () => clearInterval(interval);
+        }
+      }
+    };
     
     if (isRecording) {
-      interval = setInterval(() => {
-        setWaveformData(prev => {
-          // Create realistic audio waveform pattern
-          const newData = prev.map((_, index) => {
-            // Create wave-like pattern with random variations
-            const baseWave = Math.sin(Date.now() * 0.005 + index * 0.3) * 20;
-            const randomVariation = (Math.random() - 0.5) * 40;
-            const amplitude = Math.abs(baseWave + randomVariation);
-            
-            // Ensure minimum and maximum heights
-            return Math.max(2, Math.min(60, amplitude + 5));
-          });
-          return newData;
-        });
-      }, 100); // Update every 100ms for smooth animation
+      startMicrophone();
     } else {
-      // Reset to flat line when not recording
+      // Stop microphone and reset waveform
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        setMediaStream(null);
+      }
+      if (audioContext) {
+        audioContext.close();
+        setAudioContext(null);
+      }
+      setAnalyser(null);
       setWaveformData(Array(50).fill(2));
     }
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+      }
+      if (audioContext) {
+        audioContext.close();
+      }
     };
   }, [isRecording]);
 
