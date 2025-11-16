@@ -9,31 +9,39 @@ const HowToUse = () => {
   const [outputText, setOutputText] = useState("");
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.altKey && !isOptionPressed) {
-      setIsOptionPressed(true);
-    }
-    if (event.key.toLowerCase() === 'z' && !isZPressed) {
-      setIsZPressed(true);
+    // Prevent default behavior for Option+Z
+    if (event.altKey && event.key.toLowerCase() === 'z') {
+      event.preventDefault();
     }
     
-    // Start recording when both keys are pressed
-    if (event.altKey && event.key.toLowerCase() === 'z' && !isRecording) {
+    // Track individual key states
+    if (event.altKey) {
+      setIsOptionPressed(true);
+    }
+    if (event.key.toLowerCase() === 'z') {
+      setIsZPressed(true);
+    }
+  }, []);
+
+  const handleKeyUp = useCallback((event: KeyboardEvent) => {
+    // Track key releases
+    if (event.key === 'Alt' || !event.altKey) {
+      setIsOptionPressed(false);
+    }
+    if (event.key.toLowerCase() === 'z') {
+      setIsZPressed(false);
+    }
+  }, []);
+
+  // Separate effect to handle recording state based on key combinations
+  useEffect(() => {
+    if (isOptionPressed && isZPressed && !isRecording) {
+      // Start recording
       setIsRecording(true);
       setShowOutput(false);
       setOutputText("");
-    }
-  }, [isOptionPressed, isZPressed, isRecording]);
-
-  const handleKeyUp = useCallback((event: KeyboardEvent) => {
-    if (!event.altKey && isOptionPressed) {
-      setIsOptionPressed(false);
-    }
-    if (event.key.toLowerCase() === 'z' && isZPressed) {
-      setIsZPressed(false);
-    }
-    
-    // Stop recording and show output when keys are released
-    if (isRecording && (!event.altKey || event.key.toLowerCase() === 'z')) {
+    } else if ((!isOptionPressed || !isZPressed) && isRecording) {
+      // Stop recording
       setIsRecording(false);
       setTimeout(() => {
         setOutputText("Here is a sample sentence.");
