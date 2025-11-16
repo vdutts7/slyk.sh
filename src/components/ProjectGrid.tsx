@@ -160,7 +160,8 @@ const HowToUse = () => {
             {/* Interactive Instructions */}
             <div className="text-center mb-8">
               <p className="text-gray-600 text-lg">
-                Press + hold <kbd className="px-2 py-1 bg-gray-100 rounded text-sm">⌥ + Z</kbd>
+                Press + hold
+                 {/* <kbd className="px-2 py-1 bg-gray-100 rounded text-sm">⌥ + Z</kbd> */}
               </p>
             </div>
             
