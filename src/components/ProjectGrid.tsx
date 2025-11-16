@@ -1,4 +1,3 @@
-import { Mic } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
 const HowToUse = () => {
@@ -68,7 +67,7 @@ const HowToUse = () => {
             {/* Interactive Instructions */}
             <div className="text-center mb-8">
               <p className="text-gray-600 text-lg">
-                Try it yourself! Press and hold <kbd className="px-2 py-1 bg-gray-100 rounded text-sm">⌥ + Z</kbd> on your keyboard
+                Press + hold <kbd className="px-2 py-1 bg-gray-100 rounded text-sm">⌥ + Z</kbd>
               </p>
             </div>
             
@@ -93,34 +92,31 @@ const HowToUse = () => {
               </div>
             </div>
             
-            {/* Step 2: Interactive Microphone + Sound Waves */}
+            {/* Step 2: Apple-style Sound Waveform */}
             <div className="flex flex-col items-center gap-8">
-              <div className="relative">
-                <Mic className={`w-12 h-12 transition-colors duration-300 ${
-                  isRecording ? 'text-red-500' : 'text-gray-400'
-                }`} />
-                {isRecording && (
-                  <div className="absolute -inset-2 rounded-full bg-red-500/20 animate-ping" />
-                )}
+              {/* Apple Voice Memos Style Waveform */}
+              <div className="flex items-center justify-center gap-1 h-20">
+                {/* Create 40 bars for a detailed waveform */}
+                {Array.from({ length: 40 }).map((_, i) => {
+                  const baseHeight = isRecording ? 
+                    Math.random() * 60 + 10 : // Random heights when recording (10-70px)
+                    4; // Flat line when not recording
+                  
+                  return (
+                    <div
+                      key={i}
+                      className={`w-1 rounded-full transition-all duration-150 ${
+                        isRecording ? 'bg-blue-500' : 'bg-gray-300'
+                      }`}
+                      style={{
+                        height: `${baseHeight}px`,
+                        animationDelay: `${i * 0.05}s`,
+                        animation: isRecording ? 'waveform 0.8s ease-in-out infinite alternate' : 'none'
+                      }}
+                    />
+                  );
+                })}
               </div>
-              
-              {/* Sound Waves - Only show when recording */}
-              {isRecording && (
-                <div className="flex items-center gap-2 h-16">
-                  <div className="animate-pulse-wave w-1 rounded-full bg-blue-500" style={{height: '20px', animationDelay: '0s'}} />
-                  <div className="animate-pulse-wave w-1 rounded-full bg-blue-500" style={{height: '40px', animationDelay: '0.1s'}} />
-                  <div className="animate-pulse-wave w-1 rounded-full bg-blue-500" style={{height: '60px', animationDelay: '0.2s'}} />
-                  <div className="animate-pulse-wave w-1 rounded-full bg-blue-500" style={{height: '40px', animationDelay: '0.3s'}} />
-                  <div className="animate-pulse-wave w-1 rounded-full bg-blue-500" style={{height: '20px', animationDelay: '0.4s'}} />
-                </div>
-              )}
-              
-              {/* Recording Status */}
-              {isRecording && (
-                <p className="text-red-500 font-medium animate-pulse">
-                  🔴 Recording... Release keys to stop
-                </p>
-              )}
             </div>
             
             {/* Step 3: Dynamic Text Output */}
