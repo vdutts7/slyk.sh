@@ -15,7 +15,7 @@ const HowToUse = () => {
     }
     
     // Track individual key states
-    if (event.altKey) {
+    if (event.key === 'Alt' || event.altKey) {
       setIsOptionPressed(true);
     }
     if (event.key.toLowerCase() === 'z') {
@@ -25,7 +25,7 @@ const HowToUse = () => {
 
   const handleKeyUp = useCallback((event: KeyboardEvent) => {
     // Track key releases
-    if (event.key === 'Alt' || !event.altKey) {
+    if (event.key === 'Alt') {
       setIsOptionPressed(false);
     }
     if (event.key.toLowerCase() === 'z') {
