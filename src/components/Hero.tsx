@@ -83,7 +83,7 @@ const Hero = () => {
         
         <p className="text-xl text-gray-600 mb-20 max-w-2xl mx-auto">
           <span className="inline-block overflow-hidden whitespace-nowrap animate-tagline-reveal">
-            Move at the speed of thought
+            Move at the speed of <em>thought</em>
           </span>
         </p>
         
