@@ -6,6 +6,7 @@ const HowToUse = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [showOutput, setShowOutput] = useState(false);
   const [outputText, setOutputText] = useState("");
+  const [waveformData, setWaveformData] = useState<number[]>(Array(50).fill(2));
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     // Prevent default behavior for Option+Z
@@ -48,6 +49,36 @@ const HowToUse = () => {
       }, 500);
     }
   }, [isOptionPressed, isZPressed, isRecording]);
+
+  // Dynamic waveform animation effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (isRecording) {
+      interval = setInterval(() => {
+        setWaveformData(prev => {
+          // Create realistic audio waveform pattern
+          const newData = prev.map((_, index) => {
+            // Create wave-like pattern with random variations
+            const baseWave = Math.sin(Date.now() * 0.005 + index * 0.3) * 20;
+            const randomVariation = (Math.random() - 0.5) * 40;
+            const amplitude = Math.abs(baseWave + randomVariation);
+            
+            // Ensure minimum and maximum heights
+            return Math.max(2, Math.min(60, amplitude + 5));
+          });
+          return newData;
+        });
+      }, 100); // Update every 100ms for smooth animation
+    } else {
+      // Reset to flat line when not recording
+      setWaveformData(Array(50).fill(2));
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isRecording]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -96,26 +127,17 @@ const HowToUse = () => {
             <div className="flex flex-col items-center gap-8">
               {/* Apple Voice Memos Style Waveform */}
               <div className="flex items-center justify-center gap-1 h-20">
-                {/* Create 40 bars for a detailed waveform */}
-                {Array.from({ length: 40 }).map((_, i) => {
-                  const baseHeight = isRecording ? 
-                    Math.random() * 60 + 10 : // Random heights when recording (10-70px)
-                    4; // Flat line when not recording
-                  
-                  return (
-                    <div
-                      key={i}
-                      className={`w-1 rounded-full transition-all duration-150 ${
-                        isRecording ? 'bg-blue-500' : 'bg-gray-300'
-                      }`}
-                      style={{
-                        height: `${baseHeight}px`,
-                        animationDelay: `${i * 0.05}s`,
-                        animation: isRecording ? 'waveform 0.8s ease-in-out infinite alternate' : 'none'
-                      }}
-                    />
-                  );
-                })}
+                {waveformData.map((height, i) => (
+                  <div
+                    key={i}
+                    className={`w-1 rounded-full transition-all duration-100 ${
+                      isRecording ? 'bg-blue-500' : 'bg-gray-300'
+                    }`}
+                    style={{
+                      height: `${height}px`,
+                    }}
+                  />
+                ))}
               </div>
             </div>
             
