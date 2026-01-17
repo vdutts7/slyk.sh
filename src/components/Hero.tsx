@@ -52,6 +52,9 @@ const Hero = () => {
           </defs>
           <rect width="100%" height="100%" fill="url(#wave-dots)" className="wave-pattern" />
         </svg>
+        
+        {/* Dark wave passing over */}
+        <div className="dark-wave-overlay"></div>
       </div>
       
       {/* Header */}

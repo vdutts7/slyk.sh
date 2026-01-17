@@ -158,6 +158,39 @@ All colors MUST be HSL.
   }
 }
 
+/* Dark wave passing over */
+.dark-wave-overlay {
+  position: absolute;
+  width: 150%;
+  height: 200%;
+  top: -50%;
+  left: -25%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+  animation: dark-wave-pass 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dark-wave-pass {
+  0% {
+    transform: translateX(-100%) translateY(0px) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(0%) translateY(-20px) rotate(180deg);
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%) translateY(0px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
 /* Glassy frosted effect */
 .glass-frosted {
   backdrop-filter: blur(20px) saturate(180%);
