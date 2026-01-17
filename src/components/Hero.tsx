@@ -41,10 +41,17 @@ const Hero = () => {
   }, [showDropdown]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Wave Background Animation */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-radial from-blue-100/30 via-transparent to-transparent animate-wave" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Wave Background Animation - Inverted white/gray dots pattern */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="wave-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="20" cy="20" r="1.5" fill="rgba(0, 0, 0, 0.08)" className="wave-dot-svg" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#wave-dots)" className="wave-pattern" />
+        </svg>
       </div>
       
       {/* Header */}
