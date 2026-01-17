@@ -6,11 +6,6 @@ import Index from "./pages/Index";
 const App = () => (
   <TooltipProvider>
     <div className="min-h-screen relative" style={{ backgroundColor: '#ffffff' }}>
-      {/* Wave background */}
-      <div className="wave-background">
-        <div className="wave-layer-3"></div>
-      </div>
-      
       <Toaster />
       <Sonner />
       <Index />

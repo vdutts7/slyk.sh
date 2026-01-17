@@ -1,5 +1,6 @@
 import { ChevronRight, ChevronDown } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
+import { WaveBackground } from "./WaveBackground";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -43,22 +44,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      {/* Wave Background Animation - Skal style exact copy */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <defs>
-            <pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="10" cy="10" r="0.8" fill="rgba(0, 0, 0, 0.08)" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#dot-pattern)" opacity="0.4" />
-          <g className="wave-shapes">
-            <path d="M0,200 Q250,150 500,200 T1000,200" stroke="rgba(0, 0, 0, 0.06)" fill="none" strokeWidth="1" className="wave-1" />
-            <path d="M0,300 Q300,250 600,300 T1200,300" stroke="rgba(0, 0, 0, 0.05)" fill="none" strokeWidth="1" className="wave-2" />
-            <path d="M0,400 Q200,350 400,400 T800,400" stroke="rgba(0, 0, 0, 0.04)" fill="none" strokeWidth="1" className="wave-3" />
-          </g>
-        </svg>
-      </div>
+      {/* Canvas Wave Background - Skal style with inverted colors (dark particles on white) */}
+      <WaveBackground />
       
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-20 border-b border-gray-200/30">
