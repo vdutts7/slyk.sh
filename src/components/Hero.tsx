@@ -95,7 +95,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
       {/* Wave Background Animation - Skal style */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <canvas id="wave-canvas" className="absolute inset-0 w-full h-full"></canvas>
