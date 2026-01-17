@@ -107,12 +107,12 @@ const Hero = () => {
                 </svg>
                 <span>Download for macOS</span>
               </div>
-              <ChevronDown className="w-5 h-5 animate-bounce group-hover:animate-none transition-all" />
+              <ChevronDown className="w-5 h-5 animate-bounce group-hover:!animate-none transition-all" />
             </button>
             
             {/* Dropdown Menu */}
             {showDropdown && (
-              <div className="absolute top-full left-0 mt-2 w-80 backdrop-blur-2xl bg-white/70 supports-[backdrop-filter]:bg-white/60 border border-white/40 rounded-2xl shadow-2xl z-10 overflow-hidden glass-frosted">
+              <div className="glass-frosted absolute top-full left-0 mt-2 w-80 backdrop-blur-2xl bg-white/70 supports-[backdrop-filter]:bg-white/60 border border-white/40 rounded-2xl shadow-2xl z-10 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30 pointer-events-none"></div>
                 <a 
                   href="https://pub-ce85575ff2b94452925f9b534bf4fd98.r2.dev/releases/slyk_1.0.0_aarch64.dmg" 
