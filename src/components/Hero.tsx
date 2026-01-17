@@ -1,6 +1,5 @@
 import { ChevronRight, ChevronDown } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { WaveBackground } from "./WaveBackground";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -41,12 +40,8 @@ const Hero = () => {
     };
   }, [showDropdown]);
 
-
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      {/* Canvas Wave Background - Skal style with inverted colors (dark particles on white) */}
-      <WaveBackground />
-      
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-20 border-b border-gray-200/30">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -105,18 +100,17 @@ const Hero = () => {
             
             {/* Dropdown Menu */}
             {showDropdown && (
-              <div className="glass-frosted absolute top-full left-0 mt-2 w-80 backdrop-blur-2xl bg-white/70 supports-[backdrop-filter]:bg-white/60 border border-white/40 rounded-2xl shadow-2xl z-10 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30 pointer-events-none"></div>
+              <div className="absolute top-full left-0 mt-2 w-80 backdrop-blur-xl bg-white/90 border border-gray-200 rounded-2xl shadow-2xl z-10 overflow-hidden">
                 <a 
                   href="https://pub-ce85575ff2b94452925f9b534bf4fd98.r2.dev/releases/slyk_1.0.0_aarch64.dmg" 
                   download
-                  className="relative flex items-center justify-between px-6 py-4 hover:bg-white/30 transition-colors rounded-2xl"
+                  className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors"
                 >
                   <div className="text-left">
-                    <div className="font-semibold text-gray-900 text-left">Apple Silicon</div>
-                    <div className="text-sm text-gray-500 text-left">M1, M2, M3 • macOS 13+</div>
+                    <div className="font-semibold text-gray-900">Apple Silicon</div>
+                    <div className="text-sm text-gray-500">M1, M2, M3 • macOS 13+</div>
                   </div>
-                  <ChevronDown className="w-5 h-5 text-gray-400 ml-4 rotate-180" />
+                  <ChevronDown className="w-5 h-5 text-gray-400 rotate-180" />
                 </a>
               </div>
             )}

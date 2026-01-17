@@ -5,7 +5,7 @@ import Index from "./pages/Index";
 
 const App = () => (
   <TooltipProvider>
-    <div className="min-h-screen relative" style={{ backgroundColor: '#ffffff' }}>
+    <div className="min-h-screen bg-white">
       <Toaster />
       <Sonner />
       <Index />
