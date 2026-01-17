@@ -60,7 +60,7 @@ const Hero = () => {
           <div className="flex items-center space-x-2">
             <img src="/slyk-logo.svg" alt="Slyk Logo" className="w-8 h-8" />
             <h1 className="text-2xl font-bold">slyk</h1>
-            <span className="px-3 py-1 text-xs font-medium text-cyan-600 bg-cyan-50/80 rounded-full border border-cyan-100/50">
+            <span className="px-3 py-1 text-xs font-medium text-cyan-500 bg-cyan-100 rounded-full border border-cyan-300">
               BETA
             </span>
           </div>

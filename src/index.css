@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
 
-    --primary: 190 100% 50%;
+    --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -34,15 +34,15 @@ All colors MUST be HSL.
 
     --border: 0 0% 90%;
     --input: 0 0% 96%;
-    --ring: 190 100% 50%;
+    --ring: 0 0% 0%;
 
     --radius: 0.75rem;
 
     /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(190 100% 50%), hsl(190 100% 45%));
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 0%), hsl(0 0% 10%));
     --gradient-hero: linear-gradient(180deg, hsl(0 0% 98%), hsl(0 0% 96%));
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.8), hsl(0 0% 99% / 0.8));
-    --glow-primary: 0 4px 24px hsl(190 100% 50% / 0.15);
+    --glow-primary: 0 4px 24px hsl(0 0% 0% / 0.15);
     --glow-secondary: 0 2px 12px hsl(0 0% 0% / 0.08);
     --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.04), 0 1px 2px hsl(0 0% 0% / 0.06);
     --transition-smooth: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -263,7 +263,7 @@ All colors MUST be HSL.
   position: absolute;
   width: 300%;
   height: 300%;
-  background: linear-gradient(45deg, transparent 20%, rgba(173, 216, 230, 0.16) 50%, transparent 80%);
+  background: linear-gradient(45deg, transparent 20%, rgba(0, 0, 0, 0.08) 50%, transparent 80%);
   border-radius: 50%;
 }
 
@@ -276,7 +276,7 @@ All colors MUST be HSL.
 .wave-background::after {
   bottom: -100%;
   right: -100%;
-  background: linear-gradient(135deg, transparent 20%, rgba(135, 206, 235, 0.12) 50%, transparent 80%);
+  background: linear-gradient(135deg, transparent 20%, rgba(0, 0, 0, 0.06) 50%, transparent 80%);
   animation: wave-2 18s ease-in-out infinite reverse;
 }
 
@@ -286,7 +286,7 @@ All colors MUST be HSL.
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(176, 224, 230, 0.10) 50%, transparent 70%);
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.05) 50%, transparent 70%);
   border-radius: 50%;
   animation: wave-3 22s ease-in-out infinite;
 }
