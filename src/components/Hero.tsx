@@ -43,11 +43,11 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
       {/* Wave Background Animation - Inverted white/gray dots pattern */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="wave-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="20" cy="20" r="1.5" fill="rgba(0, 0, 0, 0.08)" className="wave-dot-svg" />
+              <circle cx="20" cy="20" r="1.5" fill="rgba(0, 0, 0, 0.12)" className="wave-dot-svg" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#wave-dots)" className="wave-pattern" />
