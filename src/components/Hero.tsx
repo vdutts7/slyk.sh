@@ -40,21 +40,65 @@ const Hero = () => {
     };
   }, [showDropdown]);
 
+  // Wave animation canvas - Skal style
+  useEffect(() => {
+    const canvas = document.getElementById('wave-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const dots: Array<{ x: number; y: number; radius: number; speed: number }> = [];
+    const dotCount = 200;
+    const spacing = 40;
+
+    // Create grid of dots
+    for (let i = 0; i < dotCount; i++) {
+      dots.push({
+        x: (i % 20) * spacing + spacing / 2,
+        y: Math.floor(i / 20) * spacing + spacing / 2,
+        radius: 1.5,
+        speed: 0.02 + Math.random() * 0.03
+      });
+    }
+
+    let time = 0;
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+
+      dots.forEach((dot, i) => {
+        const waveOffset = Math.sin(time * dot.speed + dot.x * 0.01) * 15;
+        const y = dot.y + waveOffset;
+        
+        ctx.beginPath();
+        ctx.arc(dot.x, y, dot.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      time += 0.02;
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
-      {/* Wave Background Animation - Inverted white/gray dots pattern */}
+      {/* Wave Background Animation - Skal style */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="wave-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="20" cy="20" r="1.5" fill="rgba(0, 0, 0, 0.12)" className="wave-dot-svg" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#wave-dots)" className="wave-pattern" />
-        </svg>
-        
-        {/* Dark wave passing over */}
-        <div className="dark-wave-overlay"></div>
+        <canvas id="wave-canvas" className="absolute inset-0 w-full h-full"></canvas>
       </div>
       
       {/* Header */}
