@@ -40,65 +40,24 @@ const Hero = () => {
     };
   }, [showDropdown]);
 
-  // Wave animation canvas - Skal style
-  useEffect(() => {
-    const canvas = document.getElementById('wave-canvas') as HTMLCanvasElement;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const dots: Array<{ x: number; y: number; radius: number; speed: number }> = [];
-    const dotCount = 200;
-    const spacing = 40;
-
-    // Create grid of dots
-    for (let i = 0; i < dotCount; i++) {
-      dots.push({
-        x: (i % 20) * spacing + spacing / 2,
-        y: Math.floor(i / 20) * spacing + spacing / 2,
-        radius: 1.5,
-        speed: 0.02 + Math.random() * 0.03
-      });
-    }
-
-    let time = 0;
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-
-      dots.forEach((dot, i) => {
-        const waveOffset = Math.sin(time * dot.speed + dot.x * 0.01) * 15;
-        const y = dot.y + waveOffset;
-        
-        ctx.beginPath();
-        ctx.arc(dot.x, y, dot.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      time += 0.02;
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      {/* Wave Background Animation - Skal style */}
+      {/* Wave Background Animation - Skal style exact copy */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <canvas id="wave-canvas" className="absolute inset-0 w-full h-full"></canvas>
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="0.8" fill="rgba(0, 0, 0, 0.08)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dot-pattern)" opacity="0.4" />
+          <g className="wave-shapes">
+            <path d="M0,200 Q250,150 500,200 T1000,200" stroke="rgba(0, 0, 0, 0.06)" fill="none" strokeWidth="1" className="wave-1" />
+            <path d="M0,300 Q300,250 600,300 T1200,300" stroke="rgba(0, 0, 0, 0.05)" fill="none" strokeWidth="1" className="wave-2" />
+            <path d="M0,400 Q200,350 400,400 T800,400" stroke="rgba(0, 0, 0, 0.04)" fill="none" strokeWidth="1" className="wave-3" />
+          </g>
+        </svg>
       </div>
       
       {/* Header */}
