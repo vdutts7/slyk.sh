@@ -107,7 +107,7 @@ const Hero = () => {
             {showDropdown && (
               <div className="absolute top-full left-0 mt-2 w-80 backdrop-blur-xl bg-white/90 supports-[backdrop-filter]:bg-white/80 border border-white/30 rounded-2xl shadow-2xl z-10">
                 <a 
-                  href="/download/slyk_1.0.0_aarch64.dmg" 
+                  href="https://pub-ce85575ff2b94452925f9b534bf4fd98.r2.dev/releases/slyk_1.0.0_aarch64.dmg" 
                   download
                   className="flex items-center justify-between px-6 py-4 hover:bg-gray-50/50 transition-colors rounded-2xl"
                 >
