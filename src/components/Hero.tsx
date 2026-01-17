@@ -99,7 +99,7 @@ const Hero = () => {
           <div className="relative inline-block" ref={dropdownRef}>
             <button 
               onClick={() => setShowDropdown(!showDropdown)}
-              className="inline-flex items-center justify-between gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium text-lg"
+              className="group inline-flex items-center justify-between gap-3 px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium text-lg"
             >
               <div className="flex items-center gap-2">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -107,16 +107,17 @@ const Hero = () => {
                 </svg>
                 <span>Download for macOS</span>
               </div>
-              <ChevronDown className="w-5 h-5 animate-bounce" />
+              <ChevronDown className="w-5 h-5 animate-bounce group-hover:animate-none transition-all" />
             </button>
             
             {/* Dropdown Menu */}
             {showDropdown && (
-              <div className="absolute top-full left-0 mt-2 w-80 backdrop-blur-xl bg-white/90 supports-[backdrop-filter]:bg-white/80 border border-white/30 rounded-2xl shadow-2xl z-10">
+              <div className="absolute top-full left-0 mt-2 w-80 backdrop-blur-2xl bg-white/70 supports-[backdrop-filter]:bg-white/60 border border-white/40 rounded-2xl shadow-2xl z-10 overflow-hidden glass-frosted">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30 pointer-events-none"></div>
                 <a 
                   href="https://pub-ce85575ff2b94452925f9b534bf4fd98.r2.dev/releases/slyk_1.0.0_aarch64.dmg" 
                   download
-                  className="flex items-center justify-between px-6 py-4 hover:bg-gray-50/50 transition-colors rounded-2xl"
+                  className="relative flex items-center justify-between px-6 py-4 hover:bg-white/30 transition-colors rounded-2xl"
                 >
                   <div className="text-left">
                     <div className="font-semibold text-gray-900 text-left">Apple Silicon</div>
